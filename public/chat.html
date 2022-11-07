@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://kit.fontawesome.com/b2ec349ebe.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <title>shitcord</title>
+  </head>
+  <body>
+    <div class="connectionlost" id="connectionlost" style="position: absolute; z-index: 999; background-color: rgb(0,0,0,0.5); width: 100%; height: 100%; margin-top: -40px; display:none;">
+      <div class="center">
+        <div class="loader" style="line-height: 50px; margin: 0; padding: 0;"></div>
+        <h1 style="line-height: 25px; font-weight: bold; font-size: 24px; margin: 0; padding: 0;">Connection lost!</h1>
+        <p style="line-height: 25px; margin: 0; padding: 0;">Attempting to reconnect, hang tight...</p>
+      </div>
+    </div>
+    <div class="changeroom" style="position: absolute; z-index: 999; background-color: rgb(0,0,0,0.5); width: 100%; height: 100%; margin-top: -40px; display:none;" id="changeroom">
+      <div class="join-container">
+        <header class="join-header">
+          <h1><i class="fa-solid fa-comment-dots"></i> QuikChat</h1>
+        </header>
+        <main class="join-main">
+          <form action="chat.html">
+            <div class="form-control">
+              <label for="username">Username</label>
+              <input
+                type="text"
+                name="username"
+                id="username"
+                placeholder="Enter username:"
+                required
+                class="roundedcorners"
+                style="border: 2px solid; border-color: rgb(82, 82, 82);"
+              />
+            </div>
+            <div class="form-control">
+              <label for="room">Public rooms</label>
+              <select name="room" id="room" style="border: 2px solid; border-color: rgb(82, 82, 82);" class="roundedcorners">
+                <option value="Main">Main</option>
+                <option value="Tech Closet">Tech Closet</option>
+                <option value="McDonalds">McDonalds</option>
+                <option value="">0</option>
+              </select>
+              <div class="spacer" style="height: 5px"></div>
+              <a style="text-decoration: underline; color:#002753; margin-left: 3px; cursor: pointer;" onclick="const { username, room } = Qs.parse(location.search, {ignoreQueryPrefix: true,});var roomid = window.prompt('Enter private room ID:'); window.location.href = '/chat.html?username=' + username + '&room=' + roomid">Private room?</a>
+            </div>
+            <button id="submit" class="btn roundedcorners" style="margin-left: 1px;">Change Room</button>
+          </form>
+        </main>
+      </div>
+    </div>
+    <div class="chat-container">
+      <header class="chat-header">
+        <h1><i class="fa-solid fa-comment-dots"></i> QuikChat</h1>
+        <div class="headerbuttons">
+          <a id="changeroom-btn" class="changeroombtn" onclick="document.getElementById('changeroom').style.display = 'block'"><span class="changeroombtntxt"><i class="fa-regular fa-pen-to-square"></i></i> <span class="amogus">Change Room</span></span></a>
+          <a id="leave-btn" class="leaveroombtn"><span class="leaveroombtntxt"><i class="fa-regular fa-circle-xmark"></i> <span class="amogus">Leave Room</span></span></a>
+        </div>
+      </header>
+      <main class="chat-main">
+        <div class="chat-sidebar">
+          <h3><i class="fas fa-comments"></i> Room Name:</h3>
+          <h2 id="room-name"></h2>
+          <h3><i class="fas fa-users"></i> Users</h3>
+          <ul id="users"></ul>
+        </div>
+        <div class="chat-messages"></div>
+      </main>
+      <div class="chat-form-container">
+        <form id="chat-form" class="sendmsg">
+          <input id="msg" type="text" placeholder="Enter Message" required autocomplete="off" class="sendinput"/>
+          <button class="btn sendbtn"><i class="fas fa-paper-plane"></i> Send</button>
+        </form>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
+      integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
+      crossorigin="anonymous"
+    ></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
